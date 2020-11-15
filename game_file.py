@@ -6,6 +6,7 @@ LANGUAGE - PYTHON
 OPEN SOURCE
 
 '''
+# Necessary Header files and their sub-headers
 import pygame
 import math
 import random
@@ -270,6 +271,6 @@ while check:
 '''
 END OF THE PROGRAM
 THANKS FOR VISITING
-GITHUBID - AryamanMishra
+GITHUB-ID - modest_aryaman09
 
 '''
