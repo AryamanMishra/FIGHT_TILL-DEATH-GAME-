@@ -1,0 +1,18 @@
+*** GAME :- FILGHT_TILL_DEATH ***
+Your developer :- ARYAMAN MISHRA
+
+The Ultimate Saga of 2D gaming is there. 
+The man here is harry and its up to you to save him from the enemies.
+Dont let them come to close or you are into the sand
+Enjoy!!!!!!!!!!!!!!!!!!
+
+
+### Controls ###
+'A' or left arrow key - to move harry to the left
+'D' or right arrow key - to move harry to the right
+'SPACE' - to emit flesh shattering bullets
+'LEFT-SHIFT' - to bombard groundbreaking bombs
+
+
+Test your gaming skills and survive as long as possible
+HAPPY GAMING ;)
