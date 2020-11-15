@@ -48,7 +48,7 @@ enemyY_change = []
 for it in range(no_of_enemies):
     enemyimage.append(pygame.image.load("shredder.png"))
     enemyX.append(random.randint(0,800))
-    enemyY.append(random.randint(50,120))
+    enemyY.append(random.randint(50,100))
     enemyX_change.append(0.3)
     enemyY_change.append(50)
 
