@@ -30,7 +30,7 @@ pygame.display.set_icon(icon)
 bgimage = pygame.image.load("bgimage.png")
 
 # Player image and fields
-playerimage = pygame.image.load("athlete.png")
+playerimage = pygame.image.load("player.png")
 playerX = 400
 playerY = 550
 playerX_change = 0
@@ -174,7 +174,7 @@ while check:
             if event.key == pygame.K_LSHIFT:
                 # Checking if bomb is not already in the screen
                 if bomb_state_ver == "ready":
-                    bomb_sound = mixer.Sound("Bomb+3.wav")
+                    bomb_sound = mixer.Sound("bomb.wav")
                     bomb_sound.play()
                     bombX = playerX
                     fire_bomb_ver(bombX,playerY)
