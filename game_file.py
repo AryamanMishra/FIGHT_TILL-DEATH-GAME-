@@ -137,7 +137,7 @@ def game_over_message():
 mixer.music.load("background.wav")
 mixer.music.play(-1)
 
-# The most imp variable in the whole code
+# The most imp variable in the whole program
 check = True
 
 # Game Loop
