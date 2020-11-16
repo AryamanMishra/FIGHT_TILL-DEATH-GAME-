@@ -10,6 +10,7 @@ OPEN SOURCE
 import pygame
 import math
 import random
+import tkinter
 from pygame import mixer
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP
 
@@ -50,15 +51,25 @@ enemyY_change = []
 for it in range(no_of_enemies):
     enemyimage.append(pygame.image.load("shredder.png"))
     enemyX.append(random.randint(0,800))
-    enemyY.append(random.randint(50,100))
+    enemyY.append(random.randint(50,80))
     enemyX_change.append(0.3)
     enemyY_change.append(50)
 
 # Bullet image and fields
-bulletimage_ver = pygame.image.load("bullet_ver.png")
-bulletX = playerX
-bulletY = 550
-bullet_state_ver = "ready"
+no_of_bullets = 6
+bulletimage_ver = []
+bulletX = []
+bulletY = []
+bullet_state_ver = []
+bullet_sound = []
+bullet_collission = []
+for i in range(no_of_bullets):
+    bulletimage_ver.append(pygame.image.load("bullet_ver.png"))
+    bulletX.append(playerX)
+    bulletY.append(550)
+    bullet_state_ver.append("ready")
+    bullet_sound.append(0)
+    bullet_collission.append(0)
 # ready - stationary bomb
 # fired - moving bomb
 
@@ -75,10 +86,10 @@ def enemy(a,b,i):
     screen.blit(enemyimage[i],(a,b))
 
 # Vertical Bullet method
-def fire_bullet_ver(a,b):
+def fire_bullet_ver(a,b,i):
     global bullet_state_ver
-    bullet_state_ver = "fired"
-    screen.blit(bulletimage_ver,(a,b))
+    bullet_state_ver[i] = "fired"
+    screen.blit(bulletimage_ver[i],(a,b))
     
 # Vertical Bomb method
 def fire_bomb_ver(a,b):
@@ -93,21 +104,21 @@ def distance(a,b,c,d):
 # Checking if enemy is colliding with bullet
 def checkCollisionBl(a,b,c,d):
     dist = distance(a,b,c,d)
-    if dist <= 25:
+    if dist <= 27:
         return True
     return False
 
 # Checking if enemy is colliding with bomb
 def checkCollisionBb(a,b,c,d):
     dist = distance(a,b,c,d)
-    if dist <= 30:
+    if dist <= 32:
         return True
     return False
 
 # Resets the bullet after shooting to shoot multiple bullets
-def resetbullet():
-    bulletY = 550
-    bullet_state_ver = "ready"
+def resetbullet(i):
+    bulletY[i] = 550
+    bullet_state_ver[i] = "ready"
 
 # Resets the bomb after shooting to shoot multiple bombs
 def resetbomb():
@@ -131,7 +142,14 @@ game_over_font = pygame.font.Font("heavycopper.otf",60)
 # Game_over method 
 def game_over_message():
     game_over_f = game_over_font.render("GAME OVER",True,(0,0,0))
-    screen.blit(game_over_f,(180,250))
+    screen.blit(game_over_f,(180,200))
+
+
+play_again_font = pygame.font.Font("heavycopper.otf",30)
+
+def play_again_message():
+    play_again_m = play_again_font.render("PLAY AGAIN?",True,(0,0,0))
+    screen.blit(play_again_m,(260,300))
 
 # Background Music
 mixer.music.load("background.wav")
@@ -165,11 +183,12 @@ while check:
 
             if event.key == pygame.K_SPACE:
                 # Checking if bullet is not already in the screen
-                if bullet_state_ver == "ready":
-                    bullet_sound = mixer.Sound("laser.wav")
-                    bullet_sound.play()
-                    bulletX = playerX
-                    fire_bullet_ver(bulletX,bulletY)
+                for i in range(no_of_bullets):
+                    if bullet_state_ver[i] == "ready":
+                        bullet_sound[i] = mixer.Sound("laser.wav")
+                        bullet_sound[i].play()
+                        bulletX[i] = playerX
+                        fire_bullet_ver(bulletX[i],bulletY[i],i)
 
             if event.key == pygame.K_LSHIFT:
                 # Checking if bomb is not already in the screen
@@ -203,9 +222,9 @@ while check:
     for it in range(no_of_enemies):
 
         # Game Over algo
-        if enemyY[it] > 350:
+        if enemyY[it] > 380:
             for jt in range(no_of_enemies):
-                enemyY[jt] = 1000
+                enemyY[jt] = 2000
             game_over_message()
             game_over_sound = mixer.Sound("Recording.wav")
             game_over_sound.play()
@@ -214,47 +233,50 @@ while check:
         # Enemy Movements
         enemyX[it] += enemyX_change[it]
         if enemyX[it] <= 0:
-            enemyX_change[it] = 0.26
+            enemyX_change[it] = 0.24
             enemyY[it] += enemyY_change[it] # The enemy moves down each time after hitting the boundaries
         elif enemyX[it] >= 768:
-            enemyX_change[it] = -0.26
+            enemyX_change[it] = -0.24
             enemyY[it] += enemyY_change[it] # The enemy moves down each time after hitting the boundaries   
 
         # Checking Bullet Collision occurence
-        checkingBlcol = checkCollisionBl(enemyX[it],enemyY[it],bulletX,bulletY)
-        if checkingBlcol:
-            bullet_collission = mixer.Sound("explosion.wav")
-            bullet_collission.play()
-            resetbullet()
-            score_value += 1
-            enemyX[it] = random.randint(0,800)
-            enemyY[it] = random.randint(50,100) 
+        for i in range(no_of_bullets):
+            checkingBlcol = checkCollisionBl(enemyX[it],enemyY[it],bulletX[i],bulletY[i])
+            if checkingBlcol:
+                bullet_collission[i] = mixer.Sound("explosion.wav")
+                bullet_collission[i].play()
+                resetbullet(i)
+                score_value += 1
+                enemyX[it] = random.randint(0,800)
+                enemyY[it] = random.randint(50,80) 
 
         # Checking Bomb Collision occurence
         checkingBbcol = checkCollisionBb(enemyX[it],enemyY[it],bombX,bombY)
         if checkingBbcol:
-            bullet_collission = mixer.Sound("explosion.wav")
-            bullet_collission.play()
+            bomb_collission = mixer.Sound("explosion.wav")
+            bomb_collission.play()
             resetbomb()
             score_value += 1
             enemyX[it] = random.randint(0,800)
-            enemyY[it] = random.randint(50,100) 
+            enemyY[it] = random.randint(50,80) 
         
         # Calling enemy method
         enemy(enemyX[it],enemyY[it],it)
 
     # For firing multiple bullets and bombs
-    if bulletY <= 32:
-        bulletY = playerY
-        bullet_state_ver = "ready"
+    for k in range(no_of_bullets):
+        if bulletY[k] <= 32:
+            bulletY[k] = playerY
+            bullet_state_ver[k] = "ready"
     if bombY <= 32:
         bombY = playerY
         bomb_state_ver = "ready"
     
     # Firing bullets and bombs
-    if bullet_state_ver == "fired":
-        fire_bullet_ver(bulletX + 5,bulletY - 25)
-        bulletY -= 0.3
+    for k in range(no_of_bullets):
+        if bullet_state_ver[k] == "fired":
+            fire_bullet_ver(bulletX[k] + 5,bulletY[k] - 25,k)
+            bulletY[k] -= 0.4
     if bomb_state_ver == "fired":
         fire_bomb_ver(bombX + 2,bombY - 25)
         bombY -= 0.3
@@ -266,7 +288,7 @@ while check:
     display_score(fontX,fontY)
 
     # Updating game after each iteration
-    pygame.display.update()
+    pygame.display.update() 
 
 '''
 END OF THE PROGRAM
