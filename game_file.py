@@ -153,13 +153,15 @@ def display_score(a,b):
 
 
 # Game over fields
-game_over_font = pygame.font.Font("heavycopper.otf",60)
-
+game_over_font = pygame.font.Font("heavycopper.otf",50)
+play_again_font = pygame.font.Font('heavycopper.otf', 35)
 
 # Game_over method 
 def game_over_message():
     game_over_f = game_over_font.render("GAME OVER",True,(0,0,0))
+    play_again_f = play_again_font.render("Press R to play again", True, (0,0,0))
     screen.blit(game_over_f,(180,200))
+    screen.blit(play_again_f,(150,270))
 
 
 play_again_font = pygame.font.Font("heavycopper.otf",30)
