@@ -1,10 +1,10 @@
 *** GAME :- FIGHT_TILL_DEATH ***
 
 ### Controls ###
-'A' or left arrow key - to move harry to the left
-'D' or right arrow key - to move harry to the right
-'SPACE' - to emit flesh shattering bullets
-'LEFT-SHIFT' - to bombard groundbreaking bombs
+'A' or left arrow key - to move player to the left
+'D' or right arrow key - to move player to the right
+'SPACE' - to fire bullets
+'LEFT-SHIFT' - to throw bombs
 
 
 Test your gaming skills and survive as long as possible.
