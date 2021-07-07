@@ -10,7 +10,6 @@ OPEN SOURCE
 import pygame
 import math
 import random
-import tkinter
 from pygame import mixer
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP
 
