@@ -1,9 +1,6 @@
 '''
 GAME - FIGHT_TILL_DEATH
-DEVELOPER - ARYAMAN MISHRA
-TESTERS - MITUL GARG, SANIDHYA MAHAJAN, PRIYANKA JAIN
-LANGUAGE - PYTHON
-OPEN SOURCE
+Aryaman Mishra
 
 '''
 # Necessary Header files and their sub-headers
@@ -16,18 +13,23 @@ from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP
 # Initialising Pygame
 pygame.init()
 
+
 # Creating Pygame Display Screen
 screen = pygame.display.set_mode((800,600))
 
+
 # Setting title
 pygame.display.set_caption("FIGHT_TILL_DEATH")
+
 
 # Setting title image icon
 icon = pygame.image.load("game-console.png")
 pygame.display.set_icon(icon)
 
+
 # Setting bg-image
 bgimage = pygame.image.load("bgimage.png")
+
 
 # Player image and fields
 playerimage = pygame.image.load("player.png")
@@ -36,9 +38,11 @@ playerY = 550
 playerX_change = 0
 playerY_change = 0
 
+
 # Player method
 def player(a,b):
     screen.blit(playerimage,(a,b))
+
 
 # Enemy image and fields
 no_of_enemies = 6
@@ -53,6 +57,7 @@ for it in range(no_of_enemies):
     enemyY.append(random.randint(50,80))
     enemyX_change.append(0.3)
     enemyY_change.append(50)
+
 
 # Bullet image and fields
 no_of_bullets = 6
@@ -72,6 +77,7 @@ for i in range(no_of_bullets):
 # ready - stationary bomb
 # fired - moving bomb
 
+
 # Bomb image and fields
 bombimage_ver = pygame.image.load("bomb.png")
 bombX = playerX
@@ -80,9 +86,11 @@ bomb_state_ver = "ready"
 # ready - stationary bullet
 # fired - moving bullet
 
+
 # Enemy method
 def enemy(a,b,i):
     screen.blit(enemyimage[i],(a,b))
+
 
 # Vertical Bullet method
 def fire_bullet_ver(a,b,i):
@@ -90,15 +98,18 @@ def fire_bullet_ver(a,b,i):
     bullet_state_ver[i] = "fired"
     screen.blit(bulletimage_ver[i],(a,b))
     
+
 # Vertical Bomb method
 def fire_bomb_ver(a,b):
     global bomb_state_ver
     bomb_state_ver = "fired"
     screen.blit(bombimage_ver,(a,b))
 
+
 # Method to give distance between 2 points
 def distance(a,b,c,d):
     return math.sqrt(math.pow((c-a),2) + math.pow((d-b),2))
+
 
 # Checking if enemy is colliding with bullet
 def checkCollisionBl(a,b,c,d):
@@ -107,6 +118,7 @@ def checkCollisionBl(a,b,c,d):
         return True
     return False
 
+
 # Checking if enemy is colliding with bomb
 def checkCollisionBb(a,b,c,d):
     dist = distance(a,b,c,d)
@@ -114,15 +126,18 @@ def checkCollisionBb(a,b,c,d):
         return True
     return False
 
+
 # Resets the bullet after shooting to shoot multiple bullets
 def resetbullet(i):
     bulletY[i] = 550
     bullet_state_ver[i] = "ready"
 
+
 # Resets the bomb after shooting to shoot multiple bombs
 def resetbomb():
     bombY = 550
     bomb_state_ver = "ready"
+
 
 # Score fields
 score_value = 0
@@ -130,13 +145,16 @@ font = pygame.font.Font('heavycopper.otf',30)
 fontX = 10
 fontY = 10
 
+
 # Score Method
 def display_score(a,b):
     score = font.render("YOUR SCORE: "+  str(score_value),True,(0,0,0))
     screen.blit(score,(a,b))
 
+
 # Game over fields
 game_over_font = pygame.font.Font("heavycopper.otf",60)
+
 
 # Game_over method 
 def game_over_message():
@@ -146,16 +164,19 @@ def game_over_message():
 
 play_again_font = pygame.font.Font("heavycopper.otf",30)
 
-def play_again_message():
-    play_again_m = play_again_font.render("PLAY AGAIN?",True,(0,0,0))
-    screen.blit(play_again_m,(260,300))
+
+# def play_again_message():
+#     play_again_m = play_again_font.render("PLAY AGAIN?",True,(0,0,0))
+#     screen.blit(play_again_m,(260,300))
 
 # Background Music
 mixer.music.load("background.wav")
 mixer.music.play(-1)
 
-# The most imp variable in the whole program
+
+# The most imp variable in the whole code
 check = True
+
 
 # Game Loop
 while check:
@@ -287,12 +308,6 @@ while check:
     display_score(fontX,fontY)
 
     # Updating game after each iteration
-    pygame.display.update() 
+    pygame.display.update() # using inbuilt update method in display
 
-'''
-END OF THE PROGRAM
-THANKS FOR VISITING
-HOPE YOU LIKE IT
-GITHUB-ID - modest_aryaman09
 
-'''
