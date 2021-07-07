@@ -1,1 +1,1 @@
-# FIGHT_TILL-DEATH-GAME-
+A basic python 2D survival game made in pygame.
